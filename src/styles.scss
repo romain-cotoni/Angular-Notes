@@ -1,1 +1,144 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Angular-Notes-primary: mat.define-palette(mat.$blue-palette);
+$Angular-Notes-accent: mat.define-palette(mat.$pink-palette, A700, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Angular-Notes-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$Angular-Notes-theme: mat.define-light-theme((
+  color: (
+    primary: $Angular-Notes-primary,
+    accent: $Angular-Notes-accent,
+    warn: $Angular-Notes-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($Angular-Notes-theme);
+
+//Tailwind
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  user-select: none;
+  box-sizing: border-box;
+}
+
+html, body { 
+  //height: 100%; 
+  margin: 0; 
+  padding:0;
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+input {
+  user-select:text;
+}
+
+.custom-file-input {
+  display: none;
+}
+
+/* Change the default highlight color to a light blue */
+::selection {
+  background-color: rgba(173, 216, 230, 0.5); /* Use your preferred color value */
+}
+
+/* Change the text color when selected */
+::selection {
+  color: #000; /* Use your preferred text color */
+}
+
+//ANGULAR MATERIAL COMPONENTS
+  button {
+    font-size:1rem;
+    font-weight:700;
+  }
+
+  //MAT-LABEL -> WITH TAILWIND BUG FIX
+  .mdc-notched-outline__notch { border-right: none; }
+
+  //MAT SELECT ROUNDED BORDER
+  .rounded-field .mat-mdc-form-field-flex .mdc-notched-outline .mdc-notched-outline__trailing {
+    border-radius: 0 25px 25px 0;
+  }
+
+  .rounded-field .mat-mdc-form-field-flex .mdc-notched-outline .mdc-notched-outline__leading {
+    border-radius: 25px 0 0 25px;
+    width: 25px !important;
+  }
+
+  .rounded-field .mat-mdc-form-field-flex {
+    height: 32px;
+    align-items: center;
+  }
+
+  //MAT SELECT NO PADDING BORDER
+  .custom-field-no-bottom-padding .mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+  }
+
+  //FLOATING LABEL 
+  .custom-floating-label .mdc-text-field .mdc-floating-label {
+    // top: 50%;
+    transform: translateY(-120%);
+    //pointer-events: none;
+  }
+
+  //MAT-DIALOG-TITLE
+  body {
+    // .mat-mdc-dialog-container .custom-dialog-title {
+    //   font-size: 1.125rem; 
+    //   font-weight: bold;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   margin-top: 1rem;
+    //   margin-bottom: 1rem;
+    // }
+
+    // .mat-mdc-dialog-container .custom-dialog-title .mat-icon {
+    //   margin-right: 0.25rem;
+    //   margin-left: -24px;
+    // }
+
+    // .mat-mdc-dialog-actions.custom-dialog-actions {
+    //   display: flex;
+    //   justify-content: center;
+    // }
+
+    .mat-mdc-dialog-container {
+      display:flex;
+      align-items: center;
+    }
+
+    .mat-mdc-dialog-container .mdc-dialog__content {
+      max-height:fit-content;
+      padding:0;
+    }
+    
+    .mat-mdc-dialog-container .mdc-dialog__surface {
+      max-height:fit-content;
+    }
+  }

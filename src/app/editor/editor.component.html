@@ -1,0 +1,336 @@
+<div class="flex flex-col h-full">
+    <app-header></app-header>
+    <div class="my-1 mx-1 p-0.5 font-semibold border-2 hover:cursor-pointer s:hidden">
+        <!-- <mat-toolbar color="primary">
+            <button mat-icon-button>
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span></span>
+            <button mat-icon-button>
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>share</mat-icon>
+            </button>
+        </mat-toolbar> -->
+
+        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="font">Font Properties</button>
+            <button mat-menu-item [matMenuTriggerFor]="users">Share With Users</button>
+            <button mat-menu-item [matMenuTriggerFor]="notes">Select A Note</button>
+        </mat-menu>
+
+        <mat-menu #font="matMenu">
+            <button mat-menu-item>
+                <div class="flex"><img [src]="BOLD_ICON" class="w-5 h-5 me-1" (click)='setBold()'/>Bold</div>
+            </button>
+            <button mat-menu-item>
+                <div class="flex"><img [src]="ITALIC_ICON" class="w-5 h-5 me-1" (click)='setItalic()'/>Italic</div>
+            </button>
+            <button mat-menu-item>
+                <div class="flex"><img [src]="UNDERLINE_ICON" class="w-5 h-5 me-1" (click)='setUnderline()'/>Underline</div>
+            </button>
+            <button mat-menu-item>
+                <div class="flex"><img [src]="LINK_ICON" class="w-5 h-5 me-1" (click)='setLink()'/>Link</div>
+            </button>
+            <button mat-menu-item>
+                <div class="flex"><img [src]="COLOR_ICON" class="w-5 h-5 me-1" (click)='setFontColor()'/>Color</div>
+            </button>
+            <button mat-menu-item>
+                <div class="flex"><img [src]="HIGHLIGHT_ICON" class="w-5 h-5 me-1" (click)='setFontBackgroundColor()'/>Background Color</div>
+            </button>
+            <button mat-menu-item [matMenuTriggerFor]="submenu">Sub Menu</button>
+        </mat-menu>
+
+        <mat-menu #users="matMenu">
+            <button mat-menu-item>Add User</button>
+            <button mat-menu-item>Remove User</button>
+        </mat-menu>
+
+        <mat-menu #notes="matMenu">
+            <button mat-menu-item>Add Note</button>
+            <button mat-menu-item>Delete Note</button>
+            <button mat-menu-item>Edit Note</button>
+        </mat-menu>
+
+        <mat-menu #submenu="matMenu">
+            <button mat-menu-item>element 1</button>
+            <button mat-menu-item>element 2</button>
+            <button mat-menu-item>element 3</button>
+        </mat-menu>
+    </div>
+    <div class="flex items-center my-1 mx-1 p-0.5 border-2 max-s:hidden">
+        <!-- <img [src]="BOLD_ICON"      class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)='setBold()'      matTooltip="bold"/> -->
+        <!-- <img [src]="ITALIC_ICON"    class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)='setItalic()'    matTooltip="italic"/> -->
+        <!-- <img [src]="UNDERLINE_ICON" class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)='setUnderline()' matTooltip="underline"/> -->
+        <!-- <img [src]="LINK_ICON"      class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)='setLink()'      matTooltip="add a link"/> -->
+        
+        <button mat-mini-fab class="ms-2" (click)="setBold()" matTooltip="Bold" style="width:30px; height:30px">
+            <mat-icon>format_bold</mat-icon>
+        </button>
+        <button mat-mini-fab class="ms-2" (click)="setItalic()" matTooltip="Italic" style="width:30px; height:30px">
+            <mat-icon>format_italic</mat-icon>
+        </button>
+        <button mat-mini-fab class="ms-2" (click)="setUnderline()" matTooltip="Underline" style="width:30px; height:30px">
+            <mat-icon>format_underline</mat-icon>
+        </button>
+
+        <img [src]="COLOR_ICON" class="ms-5 w-6 h-6 active:w-5 active:h-5 active:ms-3 hover:cursor-pointer" (click)="setFontColor()" matTooltip="font color"/>
+        <input type="color" [(ngModel)]="selectedFontColor"/>
+        
+        <img [src]="HIGHLIGHT_ICON" class="ms-5 w-6 h-6 active:w-5 active:h-5 active:ms-3 hover:cursor-pointer" (click)="setFontBackgroundColor()" matTooltip="font background color"/>
+        <input type="color" [(ngModel)]="selectedFontBackgroundColor" (ngModelChange)="setFontBackgroundColor()"/>
+        
+        <mat-form-field appearance="outline" color="primary" class="rounded-field custom-field-no-bottom-padding ms-5 w-24"> 
+            <mat-select class="border-sky-800 text-sky-800" [(ngModel)]="selectedFontSize" (ngModelChange)="setFontSize()">
+                <mat-option (click)='setFontSize()' [value]="1">12px</mat-option>
+                <mat-option (click)='setFontSize()' [value]="2">13px</mat-option>
+                <mat-option (click)='setFontSize()' [value]="3">16px</mat-option>
+                <mat-option (click)='setFontSize()' [value]="4">18px</mat-option>
+                <mat-option (click)='setFontSize()' [value]="5">24px</mat-option>
+                <mat-option (click)='setFontSize()' [value]="6">30px</mat-option>
+                <mat-option (click)='setFontSize()' [value]="7">48px</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <img [src]="IMAGE_ICON" class="inline w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 ms-5 hover:cursor-pointer" (click)="imgInput.click()" matTooltip="add an image"/>
+        <input #imgInput type="file" (change)="uploadImage($event)" accept="image/*" class="hidden"/>
+
+
+        <mat-form-field appearance="outline" class="rounded-field custom-field-no-bottom-padding ms-5 me-5 custom-floating-label">
+            <mat-label>Search a note</mat-label>
+            <input type="text" matInput [formControl]="noteControl" [matAutocomplete]="noteAutocomplete">
+            <mat-autocomplete #noteAutocomplete="matAutocomplete" [displayWith]="displayOptionNote" (optionSelected)="onNoteOptionsSelectionChanged($event)">
+                <mat-option *ngFor="let noteOption of filteredNotesOptions | async" [value]="noteOption">
+                    {{noteOption?.title}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+
+        <button mat-mini-fab class="ms-2" [disabled]="!editable"  (click)="saveNote()"   matTooltip="Save note" style="width:30px; height:30px">
+            <mat-icon>save</mat-icon>
+            <!-- <img src="{{ SAVE_ICON }}" alt="Save" style="width: 100%; height: 100%;"> -->
+        </button>
+        <button mat-mini-fab class="ms-2" [disabled]="!deletable" (click)="deleteNote()" matTooltip="Delete note" style="width:30px; height:30px">
+            <mat-icon>delete</mat-icon>
+            <!-- <img src="{{ DELETE_ICON }}" alt="Delete" style="width: 100%; height: 100%;"> -->
+        </button>
+        <button mat-mini-fab class="ms-2"                         (click)="clearNote()"  matTooltip="Clear editor" style="width:30px; height:30px">
+            <mat-icon>clear_all</mat-icon>
+            <!-- <img src="{{ CLEAR_ICON }}" alt="Clear" style="width: 60%; height: 60%;"> -->
+        </button>
+        <img [src]="SAVE_ICON"   class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)="saveNote()"   matTooltip="Save note"/>
+        <img [src]="DELETE_ICON" class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)="deleteNote()" matTooltip="Delete note"/>
+        <img [src]="CLEAR_ICON"  class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)="clearNote()"  matTooltip="Clear editor"/>
+
+        <button mat-raised-button (click)="goToNoteShare()" color="primary" class="ms-2" [disabled]="!sharable" matTooltip="Share the current note with other users">
+            <mat-icon>share</mat-icon>
+            Share Note
+        </button>
+    
+        <button mat-mini-fab class="ms-2" [disabled]="!selectedNote" matTooltip="print as pdf" style="width:30px; height: 30px" >
+            <mat-icon>print</mat-icon>
+        </button>
+    
+        <div #editableTitle contenteditable="true" class="inline font-semibold text-xl outline-none ms-2 px-4 hover:cursor-pointer"></div>
+
+    
+    </div>
+    <div #editableContent [attr.contenteditable]="editable"  
+        class="prose flex-grow mb-1 mx-1 p-0.5 border-2 outline-none overflow-y-auto"> <!--(contextmenu)="onMouseUp($event)-->
+    </div>
+    <app-footer [message]="''"></app-footer>
+</div>
+
+
+<!--
+    <button mat-mini-fab (click)="sortNotesListById(false)" color="primary" class="me-1" [disabled]="false" matTooltip="Sort note created asc" style="width:30px; height: 30px" >
+        <mat-icon>unfold_more</mat-icon>
+    </button>
+    <button mat-mini-fab (click)="sortNotesListById(true)" color="primary" class="me-1" [disabled]="false" matTooltip="Sort note created asc" style="width:30px; height: 30px" >
+        <mat-icon>unfold_less</mat-icon>
+    </button>
+    <button mat-mini-fab (click)="saveNote()" class="me-1" [disabled]="false" matTooltip="Save note" style="width:30px; height: 30px">
+        <img [src]="CLEAR_ICON" class="w-6 h-6"/>
+    </button>
+
+    <mat-form-field appearance="outline" class="rounded-field custom-field-no-bottom-padding mx-2 custom-floating-label">
+        <mat-label matTooltip="Share the current note with other users">Search & share</mat-label>
+        <input matInput type="text" [formControl]="userControl" [matAutocomplete]="auto1">
+        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete" [displayWith]="displayFnUser" (optionSelected)="onUserSelectionChanged($event)">
+            <mat-option *ngFor="let user of filteredUsersOptions | async" [value]="user">{{ user.username }}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <button mat-mini-fab (click)="addUserToNote()" [disabled]="!selectedUser || !selectedNote" color="primary" class="-ms-1.5" style="width:30px; height: 30px" matTooltip="Share the current note with other users">
+        <mat-icon>plus_one</mat-icon>
+    </button>
+    <img [src]="ADD_ICON" (click)="addUserToNote()" class="w-6 h-6 -ms-1.5 active:w-5 active:h-5 active:-ms-1 active:me-0.5 active:mx-0.5 hover:cursor-pointer" matTooltip="Share the current note with someone"/>
+
+    <input matInput type="text" formControlName="noteSelect" list="notesDataList" class="border-sky-800 text-sky-800"/>
+    <datalist id="notesDataList">
+        <option *ngFor="let note of user?.notes" value="{{ note.id }}" (change)='displayNote($event)'>
+            {{ note.title }}
+        </option>
+    </datalist> 
+
+    select [(ngModel)]="selectedFontSize" (ngModelChange)="setFontSize()" class="ms-2 rounded-full border-2 border-sky-800 text-sky-800">
+        <option (click)='setFontSize()' [value]="1">12px</option>
+        <option (click)='setFontSize()' [value]="2">13px</option>
+        <option (click)='setFontSize()' [value]="3">16px</option>
+        <option (click)='setFontSize()' [value]="4">18px</option>
+        <option (click)='setFontSize()' [value]="5">24px</option>
+        <option (click)='setFontSize()' [value]="6">30px</option>
+        <option (click)='setFontSize()' [value]="7">48px</option>
+    </select>
+
+    <select class="min-w-[200px] my-1 rounded-full border-2 border-sky-800 text-sky-800" [(ngModel)]="noteId" (ngModelChange)='openNote()'>
+        <option *ngFor="let note of notes" value="{{ note.id }}">
+            {{ note.title }}
+        </option>
+    </select>
+    
+    
+    <div class="me-2">
+        <button mat-icon-button color="accent" (click)='setBold()' matTooltip="bold">
+            <mat-icon>format_bold</mat-icon>
+        </button>
+        
+        <button mat-icon-button color="accent" class="me-1" (click)='setItalic()' matTooltip="italic">
+            <mat-icon>format_italic</mat-icon>
+        </button>
+        
+        <button mat-icon-button color="accent" (click)='setUnderline()' matTooltip="underline">
+            <mat-icon>format_underline</mat-icon>
+        </button>
+        
+        <button mat-icon-button color="accent" (click)='setLink()' matTooltip="add a link">
+            <mat-icon>insert_link</mat-icon>
+        </button>
+        
+        <button mat-icon-button (click)="setFontColor()">
+            <mat-icon>format_color_text</mat-icon>
+        </button>
+        <input type="color" [(ngModel)]="selectedFontColor" class="me-1">
+        
+        <button mat-icon-button (click)="setFontBackgroundColor()">
+            <mat-icon>format_color_fill</mat-icon>
+        </button>
+        <input type="color" [(ngModel)]="selectedFontBackgroundColor" (ngModelChange)="setFontBackgroundColor()" class="me-1">
+ 
+        <div class="flex items-center">
+            <img [src]="HIGHLIGHTER_ICON" (click)="setFontBackgroundColor()" class="ms-1 w-6 h-6 hover:w-5 hover:h-5"/>
+            <input type="color" [(ngModel)]="selectedFontBackgroundColor" (ngModelChange)="setFontBackgroundColor()" class="me-1">
+        </div>
+
+        <button mat-icon-button color="accent" (click)="imgInput.click()" matTooltip="add an image">
+            <mat-icon>add_photo_alternate</mat-icon>
+        </button>
+        <input #imgInput type="file" (change)="uploadImage($event)" accept="image/*" class="hidden"/> 
+        
+        <button mat-icon-button color="primary" (click)="createNewNote()" matTooltip="create a new note">
+            <mat-icon>note_add</mat-icon>
+        </button>
+        
+        <button mat-icon-button color="primary" class="me-1" (click)="updateNote()" matTooltip="save a note">
+            <mat-icon>save</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="deleteNote()" matTooltip="delete a note">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+    </div>
+    <mat-form-field appearance="outline" color="primary" class="relative top-3 me-2"> 
+        <mat-select [(ngModel)]="selectedFontSize" (ngModelChange)='setFontSize()'>
+            <mat-option (click)='setFontSize()' [value]="1">12px</mat-option>
+            <mat-option (click)='setFontSize()' [value]="2">13px</mat-option>
+            <mat-option (click)='setFontSize()' [value]="3">16px</mat-option>
+            <mat-option (click)='setFontSize()' [value]="4">18px</mat-option>
+            <mat-option (click)='setFontSize()' [value]="5">24px</mat-option>
+            <mat-option (click)='setFontSize()' [value]="6">30px</mat-option>
+            <mat-option (click)='setFontSize()' [value]="7">48px</mat-option>
+        </mat-select>
+    </mat-form-field> 
+
+    <mat-form-field appearance="outline" color="primary" class="relative top-3 me-2"> 
+        <mat-select [(ngModel)]="noteNumber" (ngModelChange)='openNote()'>
+            <mat-option *ngFor="let note of user?.notes" value="{{ note.id }}">{{ note.title }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+ 
+    <div class="w-full absolute bottom-2 text-right pe-8">{{ note!.title }}</div> 
+ 
+    <mat-form-field appearance="outline" (click)='setFontSize()' color="primary" class="relative top-3 me-2">
+        <label for="fontsize" class="text-sm">Font Size</label>
+        <select name="fontsize" [(ngModel)]="selectedFontSize" class="text-sm">
+            <option [value]="1">12px</option>
+            <option [value]="2">13px</option>
+            <option [value]="3">16px</option>
+            <option [value]="4">18px</option>
+            <option [value]="5">24px</option>
+            <option [value]="6">30px</option>
+            <option [value]="7">48px</option>
+        </select>
+    </mat-form-field>
+ 
+    <mat-form-field appearance="outline" (click)='setFontColor()' color="primary" class="relative top-3 me-2"> 
+        <mat-label class="text-xs pe-32">Font Color</mat-label>
+        <mat-select [(ngModel)]="selectedFontColor" (change)='setFontColor()'>
+            <mat-option [value]="'red'">red</mat-option>
+            <mat-option [value]="'green'">green</mat-option>
+            <mat-option [value]="'blue'">blue</mat-option>
+            <mat-option [value]="'white'">white</mat-option>
+            <mat-option [value]="'black'">black</mat-option>
+        </mat-select>
+    </mat-form-field> 
+
+    <mat-form-field appearance="outline" (click)='setFontBackgroundColor()' color="primary" class="relative top-3 me-2"> 
+        <mat-label class="text-xs pe-32">Highlight</mat-label>
+        <mat-select [(ngModel)]="selectedFontBackgroundColor">
+            <mat-option [value]="'red'">red</mat-option>
+            <mat-option [value]="'green'">green</mat-option>
+            <mat-option [value]="'blue'">blue</mat-option>
+            <mat-option [value]="'white'">white</mat-option>
+            <mat-option [value]="'black'">black</mat-option>
+        </mat-select>
+    </mat-form-field> 
+
+    <select [(ngModel)]="selectedFontSize" (change)='setFontSize()' class="w-[100px] h-[55px] border rounded-md">
+        <option [value]="1">12px</option>
+        <option [value]="2">13px</option>
+        <option [value]="3">16px</option>
+        <option [value]="4">18px</option>
+        <option [value]="5">24px</option>
+        <option [value]="6">30px</option>
+        <option [value]="7">48px</option>
+    </select> 
+
+    <div class="me-2 border rounded-md">
+        <label for="fontsize" (click)='setFontSize()' class="text-sm">Font Size</label>
+        <select name="fontsize" [(ngModel)]="selectedFontSize" (ngModelChange)='setFontSize()' class="text-sm border-gray-400 outline-none">
+            <option [value]="1">12px</option>
+            <option [value]="2">13px</option>
+            <option [value]="3">16px</option>
+            <option [value]="4">18px</option>
+            <option [value]="5">24px</option>
+            <option [value]="6">30px</option>
+            <option [value]="7">48px</option>
+        </select>
+    </div> 
+
+    <input type="text" list="notesIdAndTitles" [(ngModel)]="noteNumber" (dblclick)="openNote()" placeholder="open a note" matTooltip="open a note" class="ps-4 border border-gray-400 outline-none rounded-md">
+    <datalist id="notesIdAndTitles">
+        <option *ngFor="let note of notesIdAndTitles" value="{{ note.title }}">{{ note.title }}</option>
+    </datalist> 
+
+    <mat-form-field appearance="outline" color="primary" class="rounded-field custom-field-no-bottom-padding mx-2">
+        <input matInput type="text" list="usersList" (input)="searchUsers($event)" placeholder="Search a user" class="border-sky-800 text-sky-800"/>
+        <datalist id="usersList">
+            <option *ngFor="let user of usersList">{{ user.username }}</option>
+        </datalist>
+    </mat-form-field>
+    <img [src]="ADD_ICON" (click)="addUserToNote(2)" class="inline mt-1 w-6 h-6 active:h-5 active:mt-1.5 active:mx-0.5 hover:cursor-pointer" matTooltip="Share with user"/>
+-->
+

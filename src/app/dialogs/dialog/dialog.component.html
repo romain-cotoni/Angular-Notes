@@ -1,0 +1,39 @@
+<h1 mat-dialog-title class="custom-dialog-title">
+  <mat-icon>share</mat-icon>
+  {{data.title}}
+</h1>
+<div mat-dialog-content class="custom-dialog-content">
+  <div class="flex flex-col">
+    <mat-form-field appearance="outline" class="mt-1">
+        <mat-label>Select a user or team to share with</mat-label>
+        <input matInput #input_users>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="primary"> 
+      <mat-label>Select a right</mat-label>
+      <mat-select>
+          <mat-option [value]="1">Read</mat-option>
+          <mat-option [value]="2">Write</mat-option>
+          <mat-option [value]="3">Co-Owner</mat-option>
+          <mat-option [value]="4">Full-Owner</mat-option>
+      </mat-select>
+    </mat-form-field> 
+    <mat-form-field appearance="outline">
+      <mat-label>Send a message</mat-label>
+      <input matInput [value]="'You now have access'" #input_animal>
+  </mat-form-field>
+    <h2 class="font-bold text-black">List of sharing users for this note</h2>
+    <div class="border-2 rounded-md h-28 overflow-y-auto">
+      <div *ngFor="let el of test" class="grid grid-cols-3 text-black">
+        <div class="col-start-1 col-span-2 p-1">{{'user' + el}}</div>
+        <div class="col-start-3 col-span-1 text-end p-1"><mat-icon>delete</mat-icon></div>
+      </div>
+    </div>
+    <mat-slide-toggle class="text-end font-light mt-4" color="primary" [checked]="true" [disabled]="false">
+      Make this note public link
+    </mat-slide-toggle>
+  </div>
+</div>
+<div mat-dialog-actions class="custom-dialog-actions">
+    <button mat-raised-button color="primary" class="w-2/5" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" class="w-2/5" [mat-dialog-close]="[input_animal.value, input_users.value]">Add</button>
+</div>

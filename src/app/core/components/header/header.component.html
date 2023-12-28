@@ -1,0 +1,36 @@
+<div class="grid grid-cols-3 h-8 bg-gray-200">
+    <div class="max-s:hidden col-span-1 flex justify-start items-center">
+        <div class="ms-1 font-bold hover:text-sky-500 hover:cursor-pointer me-4" [routerLink]="['/dashboard']">
+            Dashboard
+        </div>
+        <div class="ms-1 font-bold hover:text-sky-500 hover:cursor-pointer me-4" [routerLink]="['/editor']">
+            Editor
+        </div>
+    </div>
+    <div class="s:hidden flex items-center ms-1">
+        <mat-icon [routerLink]="['/dashboard']">home</mat-icon>
+        <mat-icon [routerLink]="['/editor']">edit_note</mat-icon>
+    </div>
+    <div class="col-span-2 flex justify-end items-center">
+        <mat-icon class="me-2 rounded-xl border-2 hover:border-sky-500" (click)="onAvatarClick()">
+            person_add
+        </mat-icon>
+        <div *ngIf="!user?.username">
+            <span class="font-bold hover:text-sky-500 hover:cursor-pointer me-4" [routerLink]="['/login']">
+                Sign In
+            </span>
+            <span class="font-bold hover:text-sky-500 hover:cursor-pointer me-4" [routerLink]="['/register']">
+                Sign Up
+            </span>
+        </div>
+        <div *ngIf="user?.username">
+            <span class="font-bold hover:text-sky-500 hover:cursor-pointer me-4" [routerLink]="['/profil']">
+                {{ user?.username }}
+            </span>
+            <span class="font-bold hover:text-sky-500 hover:cursor-pointer me-4" [routerLink]="['/logout']">
+                Logout
+            </span>
+        </div>
+    </div>
+</div>
+

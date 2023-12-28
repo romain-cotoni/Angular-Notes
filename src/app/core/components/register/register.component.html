@@ -1,0 +1,36 @@
+<div class="flex flex-col justify-center items-center w-screen h-screen bg-gray-200">
+    <div *ngIf="status && status===409" class="mx-2 px-16 py-8 bg-red-100 text-red-900">
+        {{ error }}
+    </div>
+    <div class="p-8 border-2">
+        <h1 class="mb-8 font-bold text-center text-3xl">Sign up</h1>
+        <form [formGroup]="form" class="flex flex-col items-center">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="usernameControl"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="passwordControl"/>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="roleControl">
+                    <mat-option value="ADMIN">admin</mat-option>
+                    <mat-option value="USER">user</mat-option>
+                    <mat-option value="GUEST">guest</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <button mat-raised-button type="submit" color="primary" (click)="onSubmit()" class="w-full">
+                <mat-icon>person_add</mat-icon>
+                Sign up
+            </button>
+        </form>
+    </div>
+    <div class="text-center">
+        Already have an account !
+        <span class="hover:text-sky-400 hover:cursor-pointer" (click)="onLoginClick()">
+            Sign In
+        </span>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<!-- <div class="grid grid-cols-3 grid-rows-3 h-full max-xs:hidden">
+    <div class="row-span-3 border-2 hover:border-red-500">
+        01
+    </div>
+    <div class="col-2 border-2 bg-sky-300 relative hover:border-red-500">
+        <div class="relative top-1/3 text-center font-bold text-sky-600">
+            {{ modalData.name }} {{ modalData.animal }}
+        </div>
+        <div class="absolute right-4 bottom-4">
+            <button mat-raised-button type="submit" color="primary" (click)="openDialog()">
+                Open dialog
+            </button>
+        </div>
+    </div>
+    <div class="col-start-2 col-span-1 border-2 hover:border-red-500">
+        <div class="flex items-center mb-1">
+            icon svg using mat-icon
+            <mat-icon svgIcon="notepad" class="ms-1 w-6 h-6 hover:w-5 hover:h-5" aria-hidden="" aria-label=""></mat-icon>
+        </div>
+        <div class="flex items-center mb-1">
+            icon png using img [src]  
+            <img [src]="SAVE_ICON" class="ms-1 w-6 h-6 hover:w-5 hover:h-5"/>
+        </div>
+    </div>
+    <div class="col-start-2 col-span-1 border-2 hover:border-red-500">
+        04
+    </div>
+    <div class="col-start-3 col-span-1 row-start-1 row-span-3 border-2 hover:border-red-500">
+        05
+    </div>
+</div> -->
+
+<div class="flex flex-col h-full">
+    <app-header></app-header>
+    <div class="flex-grow xs:hidden">
+        mobile view
+    </div>
+    <div class="flex-grow max-xs:hidden"> <!--grid grid-cols-3 grid-rows-3 -->
+        <h1>Dashboard desktop view</h1>
+        <div>dark mode</div>
+        <div>Language</div>
+        <div>notifications</div>
+        <div>Selected Note</div>
+        <div>Number of notes</div>
+        <div>
+            <h2>List of notes</h2>
+            <div>
+                <h3>List of shared users</h3>
+            </div>
+        </div>
+    </div>
+    <app-footer [message]="''"></app-footer>
+</div>
