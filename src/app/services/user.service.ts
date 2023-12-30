@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-const BASE_URL = environment.apiUrl + 'account' //'http://localhost:8080/api/account/';
+const BASE_URL = environment.apiUrl + '/account/' //'http://localhost:8080/api/account/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
