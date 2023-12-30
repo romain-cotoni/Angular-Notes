@@ -5,8 +5,9 @@ import { Right      } from '../enums/right';
 import { Note       } from '../models/note';
 import { UserShared } from '../models/user-shared';
 import { NoteShared } from '../models/note-shared';
+import { environment } from 'src/environments/environment';
 
-const BASE_URL = 'http://localhost:8080/api/note/';
+const BASE_URL = environment.apiUrl + '/note'; //'http://localhost:8080/api/note/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
