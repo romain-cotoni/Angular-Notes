@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://spring-notes.test.azuremicroservices.io/spring-notes/api'
+    apiUrl: 'https://spring-notes-spring-notes.azuremicroservices.io/api'
   };
