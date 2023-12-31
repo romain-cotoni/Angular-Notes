@@ -10,9 +10,10 @@ import { NoteShareComponent } from './note-share/note-share.component';
 import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
-  { path: 'register'  , component: RegisterComponent                             },
+  { path: ''          , component: LoginComponent                                },
   { path: 'login'     , component: LoginComponent                                },
   { path: 'logout'    , component: LogoutComponent                               },
+  { path: 'register'  , component: RegisterComponent                             },
   { path: 'editor'    , component: EditorComponent    , canActivate: [authGuard] },
   { path: 'share-note', component: NoteShareComponent , canActivate: [authGuard] },
   { path: 'dashboard' , component: DashboardComponent , canActivate: [authGuard] },
