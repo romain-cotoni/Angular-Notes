@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'dashboard' , component: DashboardComponent , canActivate: [authGuard] },
   { path: 'profil'    , component: ProfilComponent    , canActivate: [authGuard] },
   { path: ''          , redirectTo: 'login'           , pathMatch: 'full'        }, // Add pathMatch: 'full' here
-  { path: '**'        , redirectTo: 'login'                                      }  // This should be the last route
+  { path: '**'        , redirectTo: ''                                           }  // This should be the last route
   //{ path: 'note/:id/share', component: NoteShareComponent, canActivate: [authGuard] },
   //{ path: '', redirectTo: 'text-editor', pathMatch: 'full' },
   //{ path: 'core', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
