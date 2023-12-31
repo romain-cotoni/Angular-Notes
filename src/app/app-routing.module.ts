@@ -10,7 +10,8 @@ import { NoteShareComponent } from './note-share/note-share.component';
 import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
-  { path: ''          , component: LoginComponent                                },
+  { path: '**'        , redirectTo: 'login'                                      },
+  { path: ''          , redirectTo: 'login'                                      },
   { path: 'login'     , component: LoginComponent                                },
   { path: 'logout'    , component: LogoutComponent                               },
   { path: 'register'  , component: RegisterComponent                             },
