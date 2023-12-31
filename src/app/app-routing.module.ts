@@ -10,15 +10,15 @@ import { NoteShareComponent } from './note-share/note-share.component';
 import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
-  { path: '**'        , redirectTo: 'login'                                      },
-  { path: ''          , redirectTo: 'login'                                      },
+  { path: 'register'  , component: RegisterComponent                             },
   { path: 'login'     , component: LoginComponent                                },
   { path: 'logout'    , component: LogoutComponent                               },
-  { path: 'register'  , component: RegisterComponent                             },
   { path: 'editor'    , component: EditorComponent    , canActivate: [authGuard] },
   { path: 'share-note', component: NoteShareComponent , canActivate: [authGuard] },
   { path: 'dashboard' , component: DashboardComponent , canActivate: [authGuard] },
   { path: 'profil'    , component: ProfilComponent    , canActivate: [authGuard] },
+  { path: '**'        , redirectTo: 'login'                                      },
+  { path: ''          , redirectTo: 'login'                                      },
   //{ path: 'note/:id/share', component: NoteShareComponent, canActivate: [authGuard] },
   //{ path: '', redirectTo: 'text-editor', pathMatch: 'full' },
   //{ path: 'core', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
