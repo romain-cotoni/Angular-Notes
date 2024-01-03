@@ -23,9 +23,14 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.form = this.formBuilder.group({ 
-      'usernameControl': ['rom1'], //, [Validators.required, Validators.pattern("")]
-      'passwordControl': ['ssap'],
-      'roleControl'    : ['USER'],   
+      'usernameControl' : [], //, [Validators.required, Validators.pattern("")]
+      'passwordControl' : [],
+      'password2Control': [],
+      'firstnameControl': [],
+      'lastnameControl' : [],
+      'emailControl'    : [],
+      'email2Control'    : [],
+      'roleControl'     : [],
     })
   }
 

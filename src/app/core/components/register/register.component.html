@@ -13,14 +13,10 @@
                 <mat-label>Password</mat-label>
                 <input matInput type="password" formControlName="passwordControl"/>
             </mat-form-field>
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>Role</mat-label>
-                <mat-select formControlName="roleControl">
-                    <mat-option value="ADMIN">admin</mat-option>
-                    <mat-option value="USER">user</mat-option>
-                    <mat-option value="GUEST">guest</mat-option>
-                </mat-select>
-            </mat-form-field> -->
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="emailControl"/>
+            </mat-form-field>
             <button mat-raised-button type="submit" color="primary" (click)="onSubmit()" class="w-full">
                 <mat-icon>person_add</mat-icon>
                 Sign up
@@ -34,3 +30,56 @@
         </span>
     </div>
 </div>
+
+
+
+<!-- <div class="grid grid-cols-3 w-screen bg-gray-200">
+    <div class="col-span-1">
+        
+    </div>
+    <div class="col-span-2">
+        <form [formGroup]="form" class="grid grid-cols-2 h-screen">
+            <div class="flex flex-col justify-center items-center">
+                <h1 class="mb-8 font-bold text-center text-3xl">Sign up</h1>
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="usernameControl"/>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="passwordControl"/>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="emailControl"/>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Confirm</mat-label>
+                    <input matInput type="email" formControlName="email2Control"/>
+                </mat-form-field>
+                <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">
+                    <mat-icon>person_add</mat-icon>
+                    Sign up
+                </button>
+            </div>
+            <div class="flex flex-col justify-center items-start">
+                <mat-form-field appearance="outline">
+                    <mat-label>Firstname</mat-label>
+                    <input matInput type="text" formControlName="firstnameControl"/>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput type="text" formControlName="lastnameControl"/>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="emailControl"/>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Confirm</mat-label>
+                    <input matInput type="email" formControlName="email2Control"/>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+</div> -->
