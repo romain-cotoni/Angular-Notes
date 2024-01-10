@@ -1,13 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Right      } from '../enums/right';
-import { Note       } from '../models/note';
-import { UserShared } from '../models/user-shared';
-import { NoteShared } from '../models/note-shared';
-import { environment } from 'src/environments/environment';
+import { Injectable              } from '@angular/core';
+import { Observable              } from 'rxjs';
+import { Note                    } from '../models/note';
+import { NoteShared              } from '../models/note-shared';
+import { environment             } from 'src/environments/environment';
 
-const BASE_URL = environment.apiUrl + '/note/'; //'http://localhost:8080/api/note/';
+const BASE_URL = environment.apiUrl + '/note/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,10 +16,7 @@ const httpOptions = {
 })
 export class NoteService {
 
-  // BASE_PATH = 'http://localhost:8080/api/note';
-  // HEADERS   = new HttpHeaders({ 'content-type': 'application/json' });
   selectedNote: Note | null = null;
-  
 
   constructor(private httpClient: HttpClient) { }
 
@@ -83,10 +78,6 @@ export class NoteService {
   }
   
 
-  // unshareNote(unshareUser: string, id_note: number): Observable<boolean> {
-  //   const url = BASE_URL + 'unshare_note/' + id_note;
-  //   return this.httpClient.post<boolean>(url, unshareUser, httpOptions);
-  // }
   unshareNote(noteShared: NoteShared): Observable<NoteShared> {
     const url = BASE_URL + 'unshare_note';
     return this.httpClient.post<NoteShared>(url, noteShared, httpOptions);

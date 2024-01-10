@@ -132,6 +132,8 @@ export class EditorComponent {
     this.clearEditorViewer();
     this.clearSearchInput();
     this.editable  = true;
+    this.deletable = false;
+    this.sharable  = false;
   }
   
   clearEditorViewer() {
@@ -190,6 +192,9 @@ export class EditorComponent {
         
         //Get list of user's notes for filter search input
         this.getFilteredNotesOptions();
+
+        //Set the share btn disabled
+        this.sharable  = this.selectedNote.right === Right.OWNER;
       },
       error: (error) => { console.log("Error -> from createNote(): ", error); },
     })
@@ -222,14 +227,6 @@ export class EditorComponent {
       })
     }
   }
-
-
-  // isOwner(): boolean {
-  //   if(!this.selectedNote?.id || !this.user.notes) return false 
-  //   let noteToCheck = this.user?.notes?.find(note => note.id === this.selectedNote?.id );
-  //   if(noteToCheck?.owner) return true
-  //   else return false
-  // }
 
   
   goToNoteShare() {

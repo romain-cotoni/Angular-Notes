@@ -76,10 +76,14 @@
             <mat-icon>format_underline</mat-icon>
         </button>
 
-        <img [src]="COLOR_ICON" class="ms-5 w-6 h-6 active:w-5 active:h-5 active:ms-3 hover:cursor-pointer" (click)="setFontColor()" matTooltip="font color"/>
+        <button mat-mini-fab class="ms-4" [disabled]="!editable" (click)="setFontColor()" matTooltip="font color" style="width:30px; height:30px">
+            <mat-icon>format_color_text</mat-icon>
+        </button>
         <input type="color" [(ngModel)]="selectedFontColor"/>
         
-        <img [src]="HIGHLIGHT_ICON" class="ms-5 w-6 h-6 active:w-5 active:h-5 active:ms-3 hover:cursor-pointer" (click)="setFontBackgroundColor()" matTooltip="font background color"/>
+        <button mat-mini-fab class="ms-4" [disabled]="!editable" (click)="setFontBackgroundColor()" matTooltip="font background color" style="width:30px; height:30px">
+            <mat-icon>format_color_fill</mat-icon>
+        </button>
         <input type="color" [(ngModel)]="selectedFontBackgroundColor" (ngModelChange)="setFontBackgroundColor()"/>
         
         <mat-form-field appearance="outline" color="primary" class="rounded-field custom-field-no-bottom-padding ms-5 w-24"> 
@@ -94,8 +98,10 @@
             </mat-select>
         </mat-form-field>
 
-
-        <img [src]="IMAGE_ICON" class="inline w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 ms-5 hover:cursor-pointer" (click)="imgInput.click()" matTooltip="add an image"/>
+        <button mat-mini-fab class="ms-4" [disabled]="!editable" (click)="imgInput.click()" matTooltip="add an image" style="width:30px; height:30px">
+            <mat-icon>add_a_photo</mat-icon>
+        </button>
+        <!-- <img [src]="IMAGE_ICON" class="inline w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 ms-5 hover:cursor-pointer" (click)="imgInput.click()" matTooltip="add an image"/> -->
         <input #imgInput type="file" (change)="uploadImage($event)" accept="image/*" class="hidden"/>
 
 
@@ -112,20 +118,16 @@
 
         <button mat-mini-fab class="ms-2" [disabled]="!editable"  (click)="saveNote()"   matTooltip="Save note" style="width:30px; height:30px">
             <mat-icon>save</mat-icon>
-            <!-- <img src="{{ SAVE_ICON }}" alt="Save" style="width: 100%; height: 100%;"> -->
         </button>
+
         <button mat-mini-fab class="ms-2" [disabled]="!deletable" (click)="deleteNote()" matTooltip="Delete note" style="width:30px; height:30px">
             <mat-icon>delete</mat-icon>
-            <!-- <img src="{{ DELETE_ICON }}" alt="Delete" style="width: 100%; height: 100%;"> -->
         </button>
-        <button mat-mini-fab class="ms-2"                         (click)="clearNote()"  matTooltip="Clear editor" style="width:30px; height:30px">
+        
+        <button mat-mini-fab class="ms-2" (click)="clearNote()"  matTooltip="Clear editor" style="width:30px; height:30px">
             <mat-icon>clear_all</mat-icon>
-            <!-- <img src="{{ CLEAR_ICON }}" alt="Clear" style="width: 60%; height: 60%;"> -->
         </button>
-        <img [src]="SAVE_ICON"   class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)="saveNote()"   matTooltip="Save note"/>
-        <img [src]="DELETE_ICON" class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)="deleteNote()" matTooltip="Delete note"/>
-        <img [src]="CLEAR_ICON"  class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)="clearNote()"  matTooltip="Clear editor"/>
-
+        
         <button mat-raised-button (click)="goToNoteShare()" color="primary" class="ms-2" [disabled]="!sharable" matTooltip="Share the current note with other users">
             <mat-icon>share</mat-icon>
             Share Note
@@ -137,12 +139,11 @@
     
         <div #editableTitle contenteditable="true" class="inline font-semibold text-xl outline-none ms-2 px-4 hover:cursor-pointer"></div>
 
-    
     </div>
-    <div #editableContent [attr.contenteditable]="editable"  
-        class="prose flex-grow mb-1 mx-1 p-0.5 border-2 outline-none overflow-y-auto"> <!--(contextmenu)="onMouseUp($event)-->
-    </div>
+
+    <div #editableContent [attr.contenteditable]="editable" class="prose flex-grow mb-1 mx-1 p-0.5 border-2 outline-none overflow-y-auto"></div><!--(contextmenu)="onMouseUp($event)-->
     <app-footer [message]="''"></app-footer>
+
 </div>
 
 

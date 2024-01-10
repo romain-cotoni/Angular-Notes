@@ -10,7 +10,6 @@ import { Note } from '../models/note';
 import { Right } from '../enums/right';
 import { MatSelectChange } from '@angular/material/select';
 import { UserShared } from '../models/user-shared';
-//import { NoteShared } from '../models/model-tests';
 import { NoteShared } from '../models/note-shared';
 
 @Component({
@@ -128,14 +127,6 @@ export class NoteShareComponent {
     })
   }
 
-
-  // unshareNote(userToUnshare?: string) {
-  //   this.noteService.unshareNote(userToUnshare as string, this.noteId).subscribe({
-  //     next : ()      => { let index = this.sharedUsers.findIndex(user => user.username === userToUnshare);
-  //                         this.sharedUsers.splice(index, 1); },
-  //     error: (error) => { console.log("Error -> from unshareNote(): ", error) },
-  //   })
-  // }
 
   unshareNote(username?: string) {
     let noteShared: NoteShared = {};

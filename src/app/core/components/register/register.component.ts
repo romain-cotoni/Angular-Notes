@@ -29,7 +29,7 @@ export class RegisterComponent {
       'firstnameControl': [],
       'lastnameControl' : [],
       'emailControl'    : [],
-      'email2Control'    : [],
+      'email2Control'   : [],
       'roleControl'     : [],
     })
   }

@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-const BASE_URL = environment.apiUrl + '/account/' //'http://localhost:8080/api/account/';
+const BASE_URL = environment.apiUrl + '/account/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -45,13 +45,5 @@ export class UserService {
     const url = BASE_URL + 'getSharedUsers/' + noteId.toString();
     return this.httpClient.get<User[]>(url);
   }
-
-  // refreshCurrentUser(username: string) {
-  //     this.getUser(username).subscribe({ 
-  //     next : (response) => { this.user = response 
-  //                            console.log("user: ",this.user)},
-  //     error: (error)    => { console.log("error: ", error) }
-  //   })
-  // }
-
+  
 }
