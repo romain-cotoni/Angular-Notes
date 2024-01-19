@@ -4,5 +4,5 @@ export const environment = {
     //apiUrl: 'http://localhost:8080/api'
     //apiUrl: 'http://vps-a1453f27.vps.ovh.net:8080/api'
     //apiUrl: 'https://notes-write.ovh:8080/api'
-    apiUrl: 'http://127.0.0.1:8080/api'
+    apiUrl: 'https://notes-write.ovh:8080'
 };
