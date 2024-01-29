@@ -57,8 +57,10 @@ export class EditorComponent {
   deletable: boolean = false;
   sharable: boolean = false;
   
-  imageWidth: number = 24;
+  imageWidth: number = 144;
   imageHeight: number = 16;
+  isHovering = false;
+  isDoubleClicked = false;
   
   selectedFontSize: string = '3';
   selectedFontColor!: string;
@@ -74,185 +76,185 @@ export class EditorComponent {
   }
 
   ngOnInit() {
-    console.log("----EDITOR COMPONENT----");
+      console.log("----EDITOR COMPONENT----");
 
-    //Get the user authenticated
-    this.user = this.userService.getCurrentUser() || this.sessionStorageService.getUser();
+      //Get the user authenticated
+      this.user = this.userService.getCurrentUser() || this.sessionStorageService.getUser();
 
-    //Print log of user details 
-    this.userService.getCurrentUser() 
-      ? console.log("\nuser from userService           : ", this.userService.getCurrentUser())
-      : console.log("\nuser from sessionStorageService : ", this.sessionStorageService.getUser());
+      //Print log of user details 
+      this.userService.getCurrentUser() 
+        ? console.log("\nuser from userService           : ", this.userService.getCurrentUser())
+        : console.log("\nuser from sessionStorageService : ", this.sessionStorageService.getUser());
 
-    //Get list of user's notes for filter search input
-    this.getFilteredNotesOptions();
+      //Get list of user's notes for filter search input
+      this.getFilteredNotesOptions();
   }
 
 
   memorizeUser(user: User) {
-    this.userService.setCurrentUser(user);
-    this.sessionStorageService.setUser(user);
+      this.userService.setCurrentUser(user);
+      this.sessionStorageService.setUser(user);
   }
 
 
   memorizeSelectedNote(note: Note) {
-    this.noteService.setSelectedNote(note);
-    this.sessionStorageService.setSelectedNote(note);
+      this.noteService.setSelectedNote(note);
+      this.sessionStorageService.setSelectedNote(note);
   }
 
 
   getFilteredNotesOptions() {
-    let options = this.user.notes || [];
-    this.filteredNotesOptions = this.noteControl.valueChanges.pipe(
-      startWith(''),
-      filter(value => typeof value === 'string'),
-      map(value => options?.filter(option => (option.title as string).toLowerCase().includes(value?.toLowerCase() || '') ))
-    );
+      let options = this.user.notes || [];
+      this.filteredNotesOptions = this.noteControl.valueChanges.pipe(
+        startWith(''),
+        filter(value => typeof value === 'string'),
+        map(value => options?.filter(option => (option.title as string).toLowerCase().includes(value?.toLowerCase() || '') ))
+      );
   }
 
 
   onNoteOptionsSelectionChanged(event: MatAutocompleteSelectedEvent) {
-    this.selectedNote = event.option.value as Note;
-    this.memorizeSelectedNote(this.selectedNote);
-    this.editable  = this.selectedNote.right === Right.WRITE || this.selectedNote.right === Right.OWNER;
-    this.deletable = this.selectedNote.right === Right.OWNER;
-    this.sharable  = this.selectedNote.right === Right.OWNER;
-    this.displayNote();
-    this.clearSearchInput();
+      this.selectedNote = event.option.value as Note;
+      this.memorizeSelectedNote(this.selectedNote);
+      this.editable  = this.selectedNote.right === Right.WRITE || this.selectedNote.right === Right.OWNER;
+      this.deletable = this.selectedNote.right === Right.OWNER;
+      this.sharable  = this.selectedNote.right === Right.OWNER;
+      this.displayNote();
+      this.clearSearchInput();
   }
   
 
   displayOptionNote(note: Note): string {
-    return note ? note.title as string : '';
+      return note ? note.title as string : '';
   }
 
 
   clearNote() {
-    this.selectedNote = null;
-    this.clearEditorViewer();
-    this.clearSearchInput();
-    this.editable  = true;
-    this.deletable = false;
-    this.sharable  = false;
+      this.selectedNote = null;
+      this.clearEditorViewer();
+      this.clearSearchInput();
+      this.editable  = true;
+      this.deletable = false;
+      this.sharable  = false;
   }
   
   clearEditorViewer() {
-    this.renderer.setProperty(this.editableTitle.nativeElement  , "innerText", ""); // SET TITLE VIEW EMPTY
-    this.renderer.setProperty(this.editableContent.nativeElement, "innerHTML", ""); // SET CONTENT VIEW EMPTY
+      this.renderer.setProperty(this.editableTitle.nativeElement  , "innerText", ""); // SET TITLE VIEW EMPTY
+      this.renderer.setProperty(this.editableContent.nativeElement, "innerHTML", ""); // SET CONTENT VIEW EMPTY
   }
   
   clearSearchInput() {
-    this.noteControl.reset(''); 
-    this.uncheckedAllOptions();
+      this.noteControl.reset(''); 
+      this.uncheckedAllOptions();
   }
   
   
   uncheckedAllOptions() { 
-    this.noteAutocomplete.options.forEach((option) => {
-      option.deselect();
-    });
+      this.noteAutocomplete.options.forEach((option) => {
+          option.deselect();
+      });
   }
 
 
   displayNote() {
-    //Set title in viewer
-    this.renderer.setProperty(this.editableTitle.nativeElement  , "innerText", this.selectedNote?.title);
-    //Set content in viewer
-    this.renderer.setProperty(this.editableContent.nativeElement, "innerHTML", this.selectedNote?.content);
+      //Set title in viewer
+      this.renderer.setProperty(this.editableTitle.nativeElement  , "innerText", this.selectedNote?.title);
+      //Set content in viewer
+      this.renderer.setProperty(this.editableContent.nativeElement, "innerHTML", this.selectedNote?.content);
   }
 
 
   saveNote() {
-    //IF THE NOTE ALREADY EXIST
-    if(this.selectedNote?.id) {
-      this.selectedNote.title   = this.editableTitle.nativeElement.innerHTML;
-      this.selectedNote.content = this.editableContent.nativeElement.innerHTML;
-      this.updateNote(this.selectedNote);
-    }
-    //IF THE NOTE DOESN'T ALREADY EXIST
-    else if(this.user?.id) {
-      let note: Note = {
-        title  : this.editableTitle.nativeElement.innerHTML,
-        content: this.editableContent.nativeElement.innerHTML
+      //IF THE NOTE ALREADY EXIST
+      if(this.selectedNote?.id) {
+          this.selectedNote.title   = this.editableTitle.nativeElement.innerHTML;
+          this.selectedNote.content = this.editableContent.nativeElement.innerHTML;
+          this.updateNote(this.selectedNote);
       }
-      this.createNote(this.user.id, note);
-    }
+      //IF THE NOTE DOESN'T ALREADY EXIST
+      else if(this.user?.id) {
+          let note: Note = {
+            title  : this.editableTitle.nativeElement.innerHTML,
+            content: this.editableContent.nativeElement.innerHTML
+          }
+          this.createNote(this.user.id, note);
+      }
   }
 
 
   createNote(userId: number, note: Note) {
-    this.noteService.createNote(userId, note).subscribe({
-      next: (response) => {
-        this.selectedNote = response;
-        this.user.notes?.push(this.selectedNote);
-        this.memorizeUser(this.user);
-      
-        //Set title in title viewer
-        this.renderer.setProperty(this.editableTitle.nativeElement, "innerText", this.selectedNote?.title);
-        
-        //Get list of user's notes for filter search input
-        this.getFilteredNotesOptions();
+      this.noteService.createNote(userId, note).subscribe({
+          next: (response) => {
+              this.selectedNote = response;
+              this.user.notes?.push(this.selectedNote);
+              this.memorizeUser(this.user);
+            
+              //Set title in title viewer
+              this.renderer.setProperty(this.editableTitle.nativeElement, "innerText", this.selectedNote?.title);
+              
+              //Get list of user's notes for filter search input
+              this.getFilteredNotesOptions();
 
-        //Set the share btn disabled
-        this.sharable  = this.selectedNote.right === Right.OWNER;
-      },
-      error: (error) => { console.log("Error -> from createNote(): ", error); },
-    })
+              //Set the share btn disabled
+              this.sharable  = this.selectedNote.right === Right.OWNER;
+          },
+          error: (error) => { console.log("Error -> from createNote(): ", error); },
+      })
   }
   
 
   updateNote(note: Note) {
-    this.noteService.updateNote(note).subscribe({
-      next: () => {
-        this.selectedNote!.title   = note.title  ; //Change old title with new title
-        this.selectedNote!.content = note.content; //Change old content with new content
-        this.noteControl.setValue(note.title as string);
-        this.memorizeUser(this.user);
-      },
-      error: (error) => { console.log("Error -> from updateNote(): ", error); }
-    });
+      this.noteService.updateNote(note).subscribe({
+          next: () => {
+              this.selectedNote!.title   = note.title  ; //Change old title with new title
+              this.selectedNote!.content = note.content; //Change old content with new content
+              this.noteControl.setValue(note.title as string);
+              this.memorizeUser(this.user);
+          },
+          error: (error) => { console.log("Error -> from updateNote(): ", error); }
+      });
   }
   
 
   deleteNote() {
-    if(this.selectedNote && this.selectedNote?.id) {
-      this.noteService.deleteNote(this.selectedNote.id).subscribe({
-        next: () => {
-          let index = this.user.notes?.findIndex(note => note.id === this.selectedNote?.id) as number;
-          this.user.notes?.splice(index, 1);
-          this.memorizeUser(this.user);
-          this.clearNote();
-        }, 
-        error: (error) => { console.log("Error -> from deleteNote(): ", error); }
-      })
-    }
+      if(this.selectedNote && this.selectedNote?.id) {
+          this.noteService.deleteNote(this.selectedNote.id).subscribe({
+              next: () => {
+                  let index = this.user.notes?.findIndex(note => note.id === this.selectedNote?.id) as number;
+                  this.user.notes?.splice(index, 1);
+                  this.memorizeUser(this.user);
+                  this.clearNote();
+              }, 
+              error: (error) => { console.log("Error -> from deleteNote(): ", error); }
+          })
+      }
   }
 
   
   goToNoteShare() {
-    if(this.selectedNote?.id) this.router.navigate(['share-note']);
+      if(this.selectedNote?.id) this.router.navigate(['share-note']);
   }
 
 
   //SORT & ORDER NOTES
 
   sortIdDesc() {
-    let notes = this.user.notes
-    if(notes) notes.sort( (a, b) => {
-      if (a.id === undefined) return -1;
-      if (b.id === undefined) return -1;
-      return b.id - a.id } );
+      let notes = this.user.notes
+      if(notes) notes.sort( (a, b) => {
+        if (a.id === undefined) return -1;
+        if (b.id === undefined) return -1;
+        return b.id - a.id } );
   }
 
   sortNotesListById(desc: boolean) {
-    if(this.user && this.user.notes) {
-      this.user.notes.sort( (a, b) => {
-        if (a.id === undefined) return -1;
-        if (b.id === undefined) return -1;
-        if(desc) return b.id - a.id
-        else return a.id - b.id
-      });
-    }
+      if(this.user && this.user.notes) {
+          this.user.notes.sort( (a, b) => {
+            if (a.id === undefined) return -1;
+            if (b.id === undefined) return -1;
+            if(desc) return b.id - a.id
+            else return a.id - b.id
+          });
+      }
   }
 
 
@@ -291,32 +293,101 @@ export class EditorComponent {
     this.execCommand('hiliteColor', this.selectedFontBackgroundColor);
   }
 
+
   uploadImage(event: any) {
-    const fileInput = event.target;
-    const file = fileInput.files[0];
-    if(file) {
-      const imageUrl = URL.createObjectURL(file);
-      const img = document.createElement('img');
-      img.src = imageUrl;
-      img.style.width = this.imageWidth + 'px';
-      img.style.height = 'auto';
-      img.style.marginTop = '-5px';
-      img.style.display = 'inline';
+      const fileInput = event.target;
+      const file = fileInput.files[0];
+      if(file) {
+          const imageUrl = URL.createObjectURL(file);
+          const img = this.renderer.createElement('img');
+          this.renderer.setAttribute(img, 'src', imageUrl);
+          this.renderer.setStyle(img, 'display', 'inline');
+
+          // Get the width of img
+          this.renderer.listen(img, 'load', () => { this.imageWidth = img.width; });
+          //this.renderer.setStyle(img, 'width', img.width);
+          //this.renderer.setStyle(img, 'height', 'auto');
+
+          // Add event listeners using Renderer2
+          this.renderer.listen(img, 'mouseover', (event) => this.onMouseOver(event, img));
+          this.renderer.listen(img, 'mouseout' , (event) => this.onMouseOut(event, img));
+          this.renderer.listen(img, 'mousedown', (event) => this.onMouseDown(event));
+          this.renderer.listen(img, 'dblclick' , (event) => this.onImageDoubleClick(event, img));
+          this.renderer.listen(img, 'wheel'    , (event) => this.onMouseWheel(event, img));  
       
-      const selection = window.getSelection();
-      const range = selection!.getRangeAt(0);
-      range.insertNode(img);
+          // Insert the image into the document
+          const selection = window.getSelection();
+          const range = selection?.getRangeAt(0);
+          range?.insertNode(img);
       
-      //set cursor after the img
-      const newRange = document.createRange();
-      const newSelection = window.getSelection();
-      newRange.setStartAfter(img);
-      newRange.setEndAfter(img);
-      newSelection!.removeAllRanges();
-      newSelection!.addRange(newRange);
-    }
-    fileInput.value = null;
-  } 
+          // Set cursor after the image
+          const newRange = document.createRange();
+          const newSelection = window.getSelection();
+          newRange.setStartAfter(img);
+          newRange.setEndAfter(img);
+          newSelection?.removeAllRanges();
+          newSelection?.addRange(newRange);
+      
+          fileInput.value = '';
+      }
+  }
+
+  
+  onMouseOver(event: MouseEvent, img: HTMLImageElement): void {
+      console.log('Mouse is over the image');
+      this.renderer.setStyle(img, 'border-width', 'medium');
+      this.renderer.setStyle(img, 'border-color', 'gray');
+      this.isHovering = true;
+      this.imageWidth = img.width;
+  }
+
+
+  onMouseOut(event: MouseEvent, img: HTMLImageElement): void {
+      console.log('Mouse left the image');
+      this.renderer.setStyle(img, 'border-width', '0');
+      this.renderer.setStyle(img, 'border-color', 'gray');
+      this.isHovering = false;
+      this.isDoubleClicked = false;
+  }
+
+
+  onImageDoubleClick(event: MouseEvent, img: HTMLImageElement): void {
+      console.log('Mouse doubleclick the image');
+      if(this.isDoubleClicked) {
+          this.renderer.setStyle(img, 'border-width', 'thick');
+          this.renderer.setStyle(img, 'border-color', 'green');
+          this.isDoubleClicked = false;
+      } else {
+          this.renderer.setStyle(img, 'border-width', 'thick');
+          this.renderer.setStyle(img, 'border-color', 'red');
+          this.isDoubleClicked = true;
+      }
+  }
+
+
+  onMouseDown(event: MouseEvent): void {
+      if (event.button === 2) {
+          console.log('Right mouse button pressed on the image');
+      } else if (event.button === 0) {
+          console.log('Left mouse button pressed on the image');
+      }
+  }
+
+
+  onMouseWheel(event: WheelEvent, img: HTMLImageElement) {
+      console.log('Mouse wheel event:', event.deltaY);
+      if(this.isDoubleClicked) {
+          if (event.deltaY < 0) {
+              this.imageWidth+=5;
+          } else if (event.deltaY > 0) {
+              this.imageWidth-=5;
+          }
+          this.renderer.setStyle(img, 'width', this.imageWidth + 'px');
+          this.renderer.setStyle(img, 'height', 'auto');
+      }
+  }
+
+  
 
 
   //TESTING SOME DIALOG FUNCTIONS NOT USED YET

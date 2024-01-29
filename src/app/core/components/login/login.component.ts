@@ -45,7 +45,7 @@ export class LoginComponent {
         this.userService.setCurrentUser(response.user);
         this.sessionStorageService.setUser(response.user);
         this.sessionStorageService.saveToken(response.jwtToken);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/editor']);
       },
       error   : (error) => { this.status = error.status; console.log("error on login: ", error) },
       complete: () => {}
