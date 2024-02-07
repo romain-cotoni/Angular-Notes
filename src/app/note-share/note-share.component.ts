@@ -11,6 +11,7 @@ import { Right } from '../enums/right';
 import { MatSelectChange } from '@angular/material/select';
 import { UserShared } from '../models/user-shared';
 import { NoteShared } from '../models/note-shared';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-note-share',
@@ -38,15 +39,22 @@ export class NoteShareComponent {
   
   constructor(private noteService: NoteService,
               private userService: UserService,
-              private sessionStorageService: SessionStorageService) {}
+              private sessionStorageService: SessionStorageService,
+              private router: Router) {}
 
 
   ngOnInit() {
-    //GET THE USER AUTHENTICATED
-    this.user = this.userService.getCurrentUser() || this.sessionStorageService.getUser();
-    
     //GET SELECTED NOTE
     this.selectedNote = (this.noteService.getSelectedNote() || this.sessionStorageService.getSelectedNote()) as Note;
+    console.log("selectedNote: ", this.selectedNote);
+    
+    //CHECK SELECTED NOTE RIGHT IS OWNER
+    if(!this.selectedNote || this.selectedNote.right!==Right.OWNER) {
+      this.router.navigate(['editor']);
+    }
+
+    //GET THE USER AUTHENTICATED
+    this.user = this.userService.getCurrentUser() || this.sessionStorageService.getUser();
     
     //GET NOTE TITLE
     this.noteTitle = this.selectedNote.title as string;

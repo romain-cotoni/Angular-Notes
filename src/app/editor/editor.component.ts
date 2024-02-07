@@ -217,7 +217,7 @@ export class EditorComponent {
   
 
   deleteNote() {
-      if(this.selectedNote && this.selectedNote?.id) {
+      if(this.selectedNote?.id) {
           this.noteService.deleteNote(this.selectedNote.id).subscribe({
               next: () => {
                   let index = this.user.notes?.findIndex(note => note.id === this.selectedNote?.id) as number;

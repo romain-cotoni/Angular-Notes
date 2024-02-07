@@ -2,22 +2,22 @@
     <app-header></app-header>
     <div class="my-1 mx-1 p-0.5 font-semibold border-2 hover:cursor-pointer s:hidden">
         <mat-toolbar color="primary" class="">
-            <button mat-mini-fab class="ms-2" (click)="setBold()" matTooltip="Bold" style="width:30px; height:30px">
+            <button mat-mini-fab class="ms-2" (click)="setBold()" [disabled]="!editable" matTooltip="Bold" style="width:30px; height:30px">
                 <mat-icon>format_bold</mat-icon>
             </button>
-            <button mat-mini-fab class="ms-2" (click)="setItalic()" matTooltip="Italic" style="width:30px; height:30px">
+            <button mat-mini-fab class="ms-2" (click)="setItalic()" [disabled]="!editable" matTooltip="Italic" style="width:30px; height:30px">
                 <mat-icon>format_italic</mat-icon>
             </button>
-            <button mat-mini-fab class="ms-2" (click)="setUnderline()" matTooltip="Underline" style="width:30px; height:30px">
+            <button mat-mini-fab class="ms-2" (click)="setUnderline()" [disabled]="!editable" matTooltip="Underline" style="width:30px; height:30px">
                 <mat-icon>format_underline</mat-icon>
             </button>
             <button mat-mini-fab class="ms-2" (click)="clearNote()"  matTooltip="Clear editor" style="width:30px; height:30px">
                 <mat-icon>clear_all</mat-icon>
             </button>
-            <button mat-mini-fab class="ms-2" [disabled]="!editable"  (click)="saveNote()"   matTooltip="Save note" style="width:30px; height:30px">
+            <button mat-mini-fab class="ms-2" [disabled]="!editable"  (click)="saveNote()" [disabled]="!editable" matTooltip="Save note" style="width:30px; height:30px">
                 <mat-icon>save</mat-icon>
             </button>
-            <button mat-mini-fab class="ms-2" [disabled]="!deletable" (click)="deleteNote()" matTooltip="Delete note" style="width:30px; height:30px">
+            <button mat-mini-fab class="ms-2" [disabled]="!deletable" (click)="deleteNote()" [disabled]="!deletable" matTooltip="Delete note" style="width:30px; height:30px">
                 <mat-icon>delete</mat-icon>
             </button>
         </mat-toolbar>
@@ -84,13 +84,13 @@
         <!-- <img [src]="UNDERLINE_ICON" class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)='setUnderline()' matTooltip="underline"/> -->
         <!-- <img [src]="LINK_ICON"      class="w-6 h-6 active:w-5 active:h-5 active:my-1 active:mx-0.5 hover:cursor-pointer" (click)='setLink()'      matTooltip="add a link"/> -->
         
-        <button mat-mini-fab class="ms-2" (click)="setBold()" matTooltip="Bold" style="width:30px; height:30px">
+        <button mat-mini-fab class="ms-2" (click)="setBold()"[disabled]="!editable" matTooltip="Bold" style="width:30px; height:30px">
             <mat-icon>format_bold</mat-icon>
         </button>
-        <button mat-mini-fab class="ms-2" (click)="setItalic()" matTooltip="Italic" style="width:30px; height:30px">
+        <button mat-mini-fab class="ms-2" (click)="setItalic()" [disabled]="!editable" matTooltip="Italic" style="width:30px; height:30px">
             <mat-icon>format_italic</mat-icon>
         </button>
-        <button mat-mini-fab class="ms-2" (click)="setUnderline()" matTooltip="Underline" style="width:30px; height:30px">
+        <button mat-mini-fab class="ms-2" (click)="setUnderline()" [disabled]="!editable" matTooltip="Underline" style="width:30px; height:30px">
             <mat-icon>format_underline</mat-icon>
         </button>
 
