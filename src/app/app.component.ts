@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   
-  title = 'Angular-Notes';
+  title = 'notes-write.ovh';
 
   constructor(private router: Router) {}
 
